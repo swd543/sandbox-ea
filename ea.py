@@ -12,6 +12,7 @@ The y=target is to maximize this equation ASAP:
 
 # Inputs of the equation.
 equation_inputs = [0,0]
+equation_inputs = numpy.random.uniform((0,2))
 
 # Number of the weights we are looking to optimize.
 num_weights = 2
@@ -37,6 +38,7 @@ for generation in range(num_generations):
     
     # Measing the fitness of each chromosome in the population.
     fitness = ga.cal_pop_fitness(equation_inputs, new_population)
+    print(fitness)
 
     # Selecting the best parents in the population for mating.
     parents = ga.select_mating_pool(new_population, fitness, 
@@ -47,7 +49,7 @@ for generation in range(num_generations):
                                        offspring_size=(pop_size[0]-parents.shape[0], num_weights))
 
     # Adding some variations to the offsrping using mutation.
-    offspring_mutation = ga.mutation(offspring_crossover)
+    offspring_mutation = ga.mutation(offspring_crossover, 2)
 
     # Creating the new population based on the parents and offspring.
     new_population[0:parents.shape[0], :] = parents
